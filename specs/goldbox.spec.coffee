@@ -1,17 +1,6 @@
 #>> Setup
 
-require('./goldbox').pollute()
-
-connect rayoConfig, (conn) ->
-  conn.on 'offer', (call) ->
-    call.answer ->
-      call.say "Select a song from the following options. #{getSongs()}", ->
-        call.ask 'Enter your selection now', (input) ->
-          if input < songs.length
-            call.audio songs[input].url
-          else
-            call.say 'Invalid song selection'
-
+gholdbox = require('./goldbox')
 
 songs = [
   {name:"Michael Jackson - Thriller", url:"http://dl.soundowl.com/47m.mp3"},
@@ -20,3 +9,26 @@ songs = [
 ]
 
 getSongs = -> songs.map (song, idx) -> "Press #{idx} for #{song.name}. "
+
+#>> Given a connection
+
+goldbox.connect rayoConfig, (conn) ->
+
+#>> When a call comes in
+
+  conn.on 'call', (call) ->
+
+#>> And we answer
+
+    call.answer ->
+
+#>> And we prompt
+
+      call.say "Select a song from the following options. #{getSongs()}", ->
+        call.ask 'Enter your selection now', (input) ->
+
+#>> Then input should be within range
+          if input < songs.length
+            call.audio songs[input].url
+          else
+            call.say 'Invalid song selection'
