@@ -18,7 +18,5 @@ songs = [
   {name:"The Beach Boys - Wouldn't It Be Nice", url:"http://dl.soundowl.com/15ty.mp3"},
   {name:"Flying Lotus - Do the Astral Plane", url:"http://dl.soundowl.com/4cp.mp3"}
 ]
-getSongs = ->
-  out = ""
-  out += "Press #{idx} for #{song.name}. " for song, idx in songs
-  return out
+
+getSongs = -> songs.map (song, idx) -> "Press #{idx} for #{song.name}. "
