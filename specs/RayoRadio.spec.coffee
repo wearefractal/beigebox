@@ -1,6 +1,6 @@
 #>> Setup
 
-gholdbox = require('./goldbox')
+beige = require('../beigebox')
 
 songs = [
   {name:"Michael Jackson - Thriller", url:"http://dl.soundowl.com/47m.mp3"},
@@ -12,7 +12,7 @@ getSongs = -> songs.map (song, idx) -> "Press #{idx} for #{song.name}. "
 
 #>> Given a connection
 
-goldbox.connect rayoConfig, (conn) ->
+beige.connect rayoConfig, (conn) ->
 
 #>> When a call comes in
 
@@ -28,6 +28,7 @@ goldbox.connect rayoConfig, (conn) ->
         call.ask 'Enter your selection now', (input) ->
 
 #>> Then input should be within range
+
           if input < songs.length
             call.audio songs[input].url
           else
